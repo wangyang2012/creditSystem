@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+	<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>银行小额信贷管理系统</title>
+		
+		<style>
+			#personForm {
+				float:left;
+				margin-right: 10%;
+			}
+		</style>
+		
+		<script>
+			function handleClick(radio) {
+				if (radio.value == "person") {
+					document.request.personName.disabled = false;
+					document.request.assets.disabled = false;
+					document.request.liabilities.disabled = false;
+					document.request.professions.disabled = false;
+					document.request.education.disabled = false;
+					document.request.spouse.disabled = false;
+					document.request.live.disabled = false;
+					document.request.insurance.disabled = false;
+					
+					document.request.enterpriseName.disabled = true;
+					document.request.finance.disabled = true;
+					document.request.business.disabled = true;
+				} else if (radio.value == "enterprise") {
+					document.request.personName.disabled = true;
+					document.request.assets.disabled = true;
+					document.request.liabilities.disabled = true;
+					document.request.professions.disabled = true;
+					document.request.education.disabled = true;
+					document.request.spouse.disabled = true;
+					document.request.live.disabled = true;
+					document.request.insurance.disabled = true;
+					
+					document.request.enterpriseName.disabled = false;
+					document.request.finance.disabled = false;
+					document.request.business.disabled = false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>客户管理 - 企业客户</h1>
+		<a href="client.html">返回上一页</a> <br/><br/>
+		<form name="request" method="post" action="./action/newClientAction.php">
+			<br/>
+			<h2>
+				<input type="radio" name="type" value="person" onclick="handleClick(this);" checked>个人客户
+				<input type="radio" name="type" value="enterprise" onclick="handleClick(this);">企业客户
+			</h2>
+			
+			<br/>
+			
+			<div id="personForm">
+			<table>
+				<tr><td>姓名</td><td><input type="text" name="personName"/></td></tr>
+				<tr><td>资产信息</td><td><input type="textarea" name="assets" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>负债信息</td><td><input type="textarea" name="liabilities" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>工作经历</td><td><input type="textarea" name="professions" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>教育经历</td><td><input type="textarea" name="education" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>配偶信息</td><td><input type="textarea" name="spouse" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>居住情况</td><td><input type="textarea" name="live" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>保险信息</td><td><input type="textarea" name="insurance" rows="4" cols="50" value=""/></td></tr>
+			</table>
+			</div>
+			<div id="enterpriseForm">
+			<table>
+				<tr><td>企业名称</td><td><input type="text" name="enterpriseName"/></td></tr>
+				<tr><td>财务报表</td><td><input type="textarea" name="finance" rows="4" cols="50" value=""/></td></tr>
+				<tr><td>业务基本情况</td><td><input type="textarea" name="business" rows="4" cols="50" value=""/></td></tr>
+			</table>
+			</div>
+			
+			<br/>
+			<input type="submit" value="确定"/>
+		</form>
+		<?php 
+			mysql_close();
+		?>
+	</body>
+</html>
