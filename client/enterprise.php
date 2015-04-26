@@ -10,7 +10,7 @@
 		<table border='1'>
 			<?php
 				echo '<tr><th>企业名称</th><th>财务报表</th><th>业务基本情况</th></tr>';
-				$db = mysql_connect('localhost', 'root', 'root');
+				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from client where client_type = 2';
 				$req = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());

@@ -9,14 +9,13 @@
 			}
 		</script>
 </head>
-<body>
-	<h1>系统维护 - 利率维护</h1>
+	<h1>银行小额信贷管理系统</h1>
 	<a href="system.html">返回上一页</a>
 	<br />
 	<br />
 		
 		<?php
-		$db = mysql_connect ( 'localhost', 'root', 'root' );
+		$db = mysql_connect ( 'localhost', 'root', '' );
 		mysql_select_db ( 'creditsystem', $db );
 		$sql = 'select * from interest where id = 1';
 		$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
@@ -25,16 +24,15 @@
 		echo '<h3>当前利率： ' . $oldInterest['value'] . '</h3>';
 		
 		if (isset($_POST ['newInterest'])) {
-			$newInterest = $_POST ['newInterest'];
+			$newInterest = $_POST['newInterest'];
 			if ($oldInterest == '') {
 				$sqlNew = "insert into interest(id, value) values (1, '" . $newInterest . "');";
 			} else {
-				$sqlNew = "update interest set value = '" . $newInterest . "' where id=1);";
+				$sqlNew = "update interest set value = '" . $newInterest . "' where id=1;";
 			}
-// 			echo $sqlNew;
 			mysql_query ( $sqlNew ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
 			echo '<script>
-			if (alert("已成功更新利率") != true) {
+			if (alert("利率成功更新") != true) {
 				window.location="interest.php";
 			}
 			</script>';

@@ -1,7 +1,7 @@
 <?php
 $id = $_REQUEST['id'];
 
-$db = mysql_connect('localhost', 'root', 'root');
+$db = mysql_connect('localhost', 'root', '');
 mysql_select_db('creditsystem', $db);
 
 // TODO: count before delete

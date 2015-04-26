@@ -1,6 +1,6 @@
 <?php
 	$type = $_POST['type'];
-	$db = mysql_connect('localhost', 'root', 'root');
+	$db = mysql_connect('localhost', 'root', '');
 	mysql_select_db('creditsystem', $db);
 	if ($type == 'person') {
 		$name = $_POST['personName'];

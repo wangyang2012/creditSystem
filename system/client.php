@@ -4,7 +4,7 @@
 		<title>银行小额信贷管理系统</title>
 		<script>
 			function deleteClient(id) {
-					window.location = "deleteClient.php?id="+id;
+					window.location = "./action/deleteClient.php?id="+id;
 			}
 		</script>
 	</head>
@@ -16,12 +16,12 @@
 		<table border='1'>
 			<?php
 				echo '<tr><th>姓名</th></tr>';
-				$db = mysql_connect('localhost', 'root', 'root');
+				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from client where client_type = 1';
 				$req = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());
 				while ($data = mysql_fetch_assoc($req)) {
-					echo '<tr><td>'.$data['client_name'].'</td></tr>';
+					echo '<tr><td>'.$data['client_name'].'</td><td><input type=button onclick="deleteClient('.$data['client_id'].')" value="删除"/></td></tr>';
 				}
 				mysql_close();
 			?>
@@ -34,12 +34,12 @@
 		<table border='1'>
 			<?php
 				echo '<tr><th>名称</th></tr>';
-				$db = mysql_connect('localhost', 'root', 'root');
+				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from client where client_type = 2';
 				$req = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());
 				while ($data = mysql_fetch_assoc($req)) {
-					echo '<tr><td>'.$data['client_name'].'</td><td><input type=button onclick="deleteClient('.$data['id'].')" value="删除"/></td></tr>';
+					echo '<tr><td>'.$data['client_name'].'</td><td><input type=button onclick="deleteClient('.$data['client_id'].')" value="删除"/></td></tr>';
 				}
 				mysql_close();
 			?>

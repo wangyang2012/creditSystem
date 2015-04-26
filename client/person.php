@@ -10,7 +10,7 @@
 		<table border='1'>
 			<?php
 				echo '<tr><th>姓名</th><th>主要资产</th><th>负债信息</th><th>工作经历</th><th>教育经历</th><th>配偶信息</th><th>居住情况</th><th>保险信息</th></tr>';
-				$db = mysql_connect('localhost', 'root', 'root');
+				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from client where client_type = 1';
 				$req = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());
