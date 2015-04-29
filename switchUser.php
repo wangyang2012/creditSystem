@@ -1,7 +1,6 @@
 <?php
 	$login = $_POST["login"];
 	$pass = $_POST["password"];
-
 	if (empty($login) || empty($pass)){
 		header('Location: index.html');
 	} else {

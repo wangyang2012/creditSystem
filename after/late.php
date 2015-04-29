@@ -3,46 +3,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>银行小额信贷管理系统</title> 
-		<script>
-			function acceptReq(id) {
-				window.location = "./action/accept.php?id="+id;
-			}
-			function refuseReq(id) {
-				window.location = "./action/refuse.php?id="+id;
-			}
-		</script>
-
 </head>
 <body>
-	<h1>贷款业务管理 - 贷款发放</h1>
+	<h1>贷后管理 - 贷款逾期</h1>
 
-	<a href="credit.html">返回上一页</a>
+	<a href="after.html">返回上一页</a>
 	<br />
 	<br />
-
 	<table border="1">
 		<thead>
 			<th>客户姓名</th>
 			<th>客户类型</th>
 			<th>贷款金额</th>
 			<th>贷款时长</th>
-			<th>信用等级</th>
-			<th>同意</th>
-			<th>拒绝</th>
+			<th>贷款日期</th>
 		</thead>
 		<tbody>
 				<?php
 				$db = mysql_connect ( 'localhost', 'root', '' );
 				mysql_select_db ( 'creditsystem', $db );
-				$sql = 'select request_id as id, client_name, client_type, amount, duration, level from request join client on client.client_id = request.client_id';
+				$sql = 'select distribution_id, client_name, client_type, amount, duration, date, EXTRACT(YEAR FROM now()) - EXTRACT(YEAR FROM `date`) as diff  from distribution join client on client.client_id = distribution.client_id where diff > duration';
 				$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
+				$i = 0;
 				while ( $data = mysql_fetch_assoc ( $req ) ) {
 					if ($data['client_type'] == '1') {
 						$clientType = "个人客户";
 					} else if ($data['client_type'] == '2') {
 						$clientType = "企业客户";
 					}
-					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>'.$data['level'].'</td><td><input type="button" onclick="acceptReq(' . $data ['id'] . ');" value="同意"/></td><td><input type="button" onclick="refuseReq(' . $data ['id'] . ');" value="拒绝"/></td></tr>';
+					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>' . $data ['date'] . '</td></tr>';
+					$i = $i + 1;
 				}
 				?>
 			</tbody>
