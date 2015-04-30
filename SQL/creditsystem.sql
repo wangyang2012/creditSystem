@@ -19,8 +19,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `creditsystem`
 --
-
 -- --------------------------------------------------------
+
+DROP DATABASE IF EXISTS `creditsystem`;
+CREATE DATABASE IF NOT EXISTS `creditsystem` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `creditsystem`;
 
 --
 -- 表的结构 `client`
@@ -45,13 +48,13 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- 转存表中的数据 `client`
 --
 
-INSERT INTO `client` (`client_id`, `client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`) VALUES
-(1, '个人客户1', 1, '房180万 车30万 存款20万', '负债3000万', '新技术研发中心负责人', '蓝翔技校 电气焊专业', '已婚', '花园路别墅一套', '最高保额5000万', NULL, NULL),
-(3, '企业1', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013年盈利300万 2014年盈利200万', '机床加工'),
-(5, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', ''),
-(6, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', ''),
-(8, '企业3', 2, '', '', '', '', '', '', '', '空', '无业务'),
-(10, 'å°çŽ‹', 1, 'æˆ¿è½¦', 'æ— ', 'è°·æ­Œ', 'æ¸…åŽ', 'æœ‰å¦»æœ‰å¨ƒ', 'ä¸¤æˆ¿', 'æœ€é«˜ä¿é¢1000ä¸‡', '', '');
+INSERT INTO `client` (`client_id`, `client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`, `level`) VALUES
+(1, '个人客户1', 1, '房180万 车30万 存款20万', '负债3000万', '新技术研发中心负责人', '蓝翔技校 电气焊专业', '已婚', '花园路别墅一套', '最高保额5000万', NULL, NULL, 3),
+(3, '企业1', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013年盈利300万 2014年盈利200万', '机床加工', 2),
+(5, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', 5),
+(6, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', 1),
+(8, '企业3', 2, '', '', '', '', '', '', '', '空', '无业务', 3),
+(10, '个人客户2', 1, '', '', '', '', '', '', '', '', '', 3);
 
 -- --------------------------------------------------------
 
