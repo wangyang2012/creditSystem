@@ -22,7 +22,7 @@
 				<?php
 				$db = mysql_connect ( 'localhost', 'root', '' );
 				mysql_select_db ( 'creditsystem', $db );
-				$sql = 'select distribution_id, client_name, client_type, amount, duration, date, EXTRACT(YEAR FROM now()) - EXTRACT(YEAR FROM `date`) as diff  from distribution join client on client.client_id = distribution.client_id where diff > duration';
+				$sql = 'select distribution_id, client_name, client_type, amount, duration, date, (EXTRACT(YEAR FROM now()) - EXTRACT(YEAR FROM `date`)) as diff  from distribution join client on client.client_id = distribution.client_id where (EXTRACT(YEAR FROM now()) - EXTRACT(YEAR FROM `date`)) > duration';
 				$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
 				$i = 0;
 				while ( $data = mysql_fetch_assoc ( $req ) ) {

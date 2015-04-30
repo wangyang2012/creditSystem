@@ -3,11 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>银行小额信贷管理系统</title>
-	<script>
+	<script  type="text/javascript">
 		function changeLevel(level, clientId) {
-// 			var duration = document.getElementsByName("input"+i).value;
-// 			alert("id="+id+"  i=" + i + "    value="+value;
-			window.location = "./action/changeLevel.php?id="+id+"&level="+level;
+			window.location = "./action/changeLevel.php?id="+clientId+"&level="+level;
 		}
 	</script> 
 </head>

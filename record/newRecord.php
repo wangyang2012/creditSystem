@@ -7,7 +7,7 @@
 <body>
 	<h1>不良记录管理 - 不良记录收集</h1>
 
-	<a href="credit.html">返回上一页</a>
+	<a href="record.html">返回上一页</a>
 	<br />
 	<br />
 		<?php
