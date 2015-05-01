@@ -44,9 +44,5 @@
 				mysql_close();
 			?>
 		</table>
-		<br/><br/>
-		<hr/>
-		<br/><br/>
-		
 	</body>
 </html>

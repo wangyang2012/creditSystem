@@ -14,7 +14,7 @@
 	mysql_query($sqlDelete) or die('Erreur SQL: <br/>'.mysql_error());
 	
 	// get new distribution_id
-	$sqlNewDistributionId = 'select distribution_id from distribution where client_id="'.$request['client_id'].'" and amount="'.$request['amount'].'" and duration="'.$request['duration'].'" and date=now();';
+	$sqlNewDistributionId = 'select distribution_id from distribution where client_id="'.$request['client_id'].'" and amount="'.$request['amount'].'" and duration="'.$request['duration'].'";';
 	$resultNewDistributionId = mysql_query($sqlNewDistributionId) or die('Erreur SQL: <br/>'.mysql_error());
 	$requestNewDistributionId= mysql_fetch_assoc($resultNewDistributionId);
 	$distributionId = $requestNewDistributionId['distribution_id'];

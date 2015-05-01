@@ -8,7 +8,7 @@
 	$result = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());
 	echo '<script>
 			if (alert("已成功展期") != true) {
-				window.location="../interest.php";
+				window.location="../extend.php";
 			}
 			</script>';
 ?>
