@@ -13,6 +13,20 @@
 	$sqlDelete = 'delete from contract where contract_id = '.$id.';';
 	mysql_query($sqlDelete) or die('Erreur SQL: <br/>'.mysql_error());
 	
+	// get new distribution_id
+	$sqlNewDistributionId = 'select distribution_id from distribution where client_id="'.$request['client_id'].'" and amount="'.$request['amount'].'" and duration="'.$request['duration'].'" and date=now();';
+	$resultNewDistributionId = mysql_query($sqlNewDistributionId) or die('Erreur SQL: <br/>'.mysql_error());
+	$requestNewDistributionId= mysql_fetch_assoc($resultNewDistributionId);
+	$distributionId = $requestNewDistributionId['distribution_id'];
+	
+	// insert to interests
+	$sqlInsertInterest = 'insert into interests(distribution_id, interest) values ("'.$distributionId.'", "0");';
+	mysql_query($sqlInsertInterest) or die('Erreur SQL: <br/>'.mysql_error());
+	
+	// insert to repayment
+	$sqlInsertRepayment = 'insert into repayment(distribution_id, repayed) values ("'.$distributionId.'", "0");';
+	mysql_query($sqlInsertRepayment) or die('Erreur SQL: <br/>'.mysql_error());
+	
 	echo '<script>
 			if (alert("已成功发放贷款") != true) {
 				window.location="../distribution.php";

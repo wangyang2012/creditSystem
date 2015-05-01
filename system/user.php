@@ -14,7 +14,7 @@
 		
 		<table border='1'>
 			<?php
-				echo '<tr><th>姓名</th></tr>';
+				echo '<tr><th>姓名</th><th>删除</th></tr>';
 				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from user';

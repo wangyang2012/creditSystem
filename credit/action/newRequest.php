@@ -10,7 +10,7 @@
 	$req = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());
 	echo '<script>
 			if (alert("请求已成功添加") != true) {
-				window.location="../request.php";
+				window.location="../credit.html";
 			}
 			</script>';
 ?>

@@ -4,8 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>银行小额信贷管理系统</title> 
 		<script>
-			function acceptReq(id) {
-				window.location = "./action/accept.php?id="+id;
+			function acceptReq(id, level) {
+				if (level < 3) {
+					window.location = "./action/accept.php?id="+id;
+				}else{
+					alert("信用等级不足，不能同意申请");
+				}
 			}
 			function refuseReq(id) {
 				window.location = "./action/refuse.php?id="+id;
@@ -42,7 +46,7 @@
 					} else if ($data['client_type'] == '2') {
 						$clientType = "企业客户";
 					}
-					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>'.$data['level'].'</td><td><input type="button" onclick="acceptReq(' . $data ['id'] . ');" value="同意"/></td><td><input type="button" onclick="refuseReq(' . $data ['id'] . ');" value="拒绝"/></td></tr>';
+					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>'.$data['level'].'</td><td><input type="button" onclick="acceptReq(' . $data ['id'] . ', '.$data['level'].');" value="同意"/></td><td><input type="button" onclick="refuseReq(' . $data ['id'] . ');" value="拒绝"/></td></tr>';
 				}
 				?>
 			</tbody>

@@ -15,7 +15,7 @@
 		<h2>个人客户</h2>
 		<table border='1'>
 			<?php
-				echo '<tr><th>姓名</th></tr>';
+				echo '<tr><th>姓名</th><th>删除</th></tr>';
 				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from client where client_type = 1';
@@ -33,7 +33,7 @@
 		<h2>企业客户</h2>
 		<table border='1'>
 			<?php
-				echo '<tr><th>名称</th></tr>';
+				echo '<tr><th>名称</th><th>删除</th></tr>';
 				$db = mysql_connect('localhost', 'root', '');
 				mysql_select_db('creditsystem', $db);
 				$sql = 'select * from client where client_type = 2';

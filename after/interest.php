@@ -13,7 +13,7 @@
 <body>
 	<h1>贷后管理 - 贷后收息</h1>
 
-	<a href="credit.html">返回上一页</a>
+	<a href="after.html">返回上一页</a>
 	<br />
 	<br />
 	
@@ -31,7 +31,7 @@
 				<?php
 				$db = mysql_connect ( 'localhost', 'root', '' );
 				mysql_select_db ( 'creditsystem', $db );
-				$sql = 'select client_name, client_type, amount, duration, interest, date from interests join client on client.client_id = interests.client_id';
+				$sql = 'select client_name, client_type, amount, duration, interest, date from interests join distribution on interests.distribution_id = distribution.distribution_id join client on client.client_id = distribution.client_id where interest > 0';
 				$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
 				while ( $data = mysql_fetch_assoc ( $req ) ) {
 					if ($data['client_type'] == '1') {
@@ -70,7 +70,7 @@
 				$interests = mysql_fetch_assoc($reqInterest);
 				$interest = $interests['value'];
 				
-				$sql = 'select distribution_id, client_name, client_type, amount, duration, date from distribution join client on client.client_id = distribution.client_id';
+				$sql = 'select distribution.distribution_id, client_name, client_type, distribution.amount, distribution.duration, distribution.date from distribution join client on client.client_id = distribution.client_id join interests on interests.distribution_id = distribution.distribution_id  where interest = 0';
 				$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
 				while ( $data = mysql_fetch_assoc ( $req ) ) {
 					if ($data['client_type'] == '1') {
@@ -84,7 +84,7 @@
 					for ($i=1; $i < $data['duration']; $i++) {
 						$total = $total * (1+$interest);
 					}
-					$amountInterest = $total - $data['amount'];
+					$amountInterest = round($total - $data['amount'], 2);
 					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>'.$data['date'].'</td><td>'.$amountInterest.'</td><td><input type="button" onclick="getInterest('.$data['distribution_id'].', '.$amountInterest.');" value="收取利息"/></td></tr>';
 				}
 				?>

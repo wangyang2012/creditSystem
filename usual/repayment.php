@@ -4,44 +4,42 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>银行小额信贷管理系统</title> 
 		<script>
-			function extendDuration(id, value) {
-				alert("id);
-				alert(value);
-// 				window.location = "./action/extend.php?id="+id+"&duration="+duration;
+			function update(value, repayed, id) {
+				window.location = "./action/repayment.php?id="+id+"&value="+value+"&repayed="+repayed;
 			}
 		</script>
 
 </head>
 <body>
-	<h1>贷后管理 - 贷款展期</h1>
+	<h1>日常管理 - 同步还款信息</h1>
 
-	<a href="after.html">返回上一页</a>
+	<a href="usual.html">返回上一页</a>
 	<br />
 	<br />
+	<h3>同步还款信息</h3>
 	<table border="1">
 		<thead>
 			<th>客户姓名</th>
 			<th>客户类型</th>
-			<th>贷款金额</th>
+			<th>发放日期</th>
 			<th>贷款时长</th>
-			<th>新时长</th>
-			<th>展期</th>
+			<th>贷款金额</th>
+			<th>已还金额</th>
+			<th>本次还款金额</th>
 		</thead>
 		<tbody>
 				<?php
 				$db = mysql_connect ( 'localhost', 'root', '' );
 				mysql_select_db ( 'creditsystem', $db );
-				$sql = 'select distribution_id, client_name, client_type, amount, duration from distribution join client on client.client_id = distribution.client_id';
+				$sql = 'select client_name, client_type, amount, duration, date, repayment_id, repayed from distribution join client on client.client_id = distribution.client_id join repayment on repayment.distribution_id =  distribution.distribution_id';
 				$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
-				$i = 0;
 				while ( $data = mysql_fetch_assoc ( $req ) ) {
 					if ($data['client_type'] == '1') {
 						$clientType = "个人客户";
 					} else if ($data['client_type'] == '2') {
 						$clientType = "企业客户";
 					}
-					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td><input type="text" onchange='extendDuration("'.$data['distribution_id'].'", "this.value")'/></td></tr>';
-					$i = $i + 1;
+					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>'.$data['date'].'</td><td>' . $data ['duration'] . '</td><td>' . $data ['amount'] . '</td><td>'.$data['repayed'].'</td><td><input type="text" onchange="update(this.value, '.$data['repayed'].', '.$data['repayment_id'].')"/></td></tr>';
 				}
 				?>
 			</tbody>

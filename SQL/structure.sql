@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2015-04-30 01:24:56
+-- Generation Time: 2015-05-01 11:07:41
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,11 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `creditsystem`
 --
--- --------------------------------------------------------
 
-DROP DATABASE IF EXISTS `creditsystem`;
-CREATE DATABASE IF NOT EXISTS `creditsystem` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `creditsystem`;
+-- --------------------------------------------------------
 
 --
 -- 表的结构 `client`
@@ -42,20 +39,8 @@ CREATE TABLE IF NOT EXISTS `client` (
   `insurance` varchar(255) DEFAULT NULL,
   `finance` varchar(255) DEFAULT NULL,
   `business` varchar(255) DEFAULT NULL,
-  `level` int(11) DEFAULT 3
+  `level` int(11) DEFAULT '3'
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `client`
---
-
-INSERT INTO `client` (`client_id`, `client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`, `level`) VALUES
-(1, '个人客户1', 1, '房180万 车30万 存款20万', '负债3000万', '新技术研发中心负责人', '蓝翔技校 电气焊专业', '已婚', '花园路别墅一套', '最高保额5000万', NULL, NULL, 3),
-(3, '企业1', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013年盈利300万 2014年盈利200万', '机床加工', 2),
-(5, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', 5),
-(6, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', 1),
-(8, '企业3', 2, '', '', '', '', '', '', '', '空', '无业务', 3),
-(10, '个人客户2', 1, '', '', '', '', '', '', '', '', '', 3);
 
 -- --------------------------------------------------------
 
@@ -71,13 +56,6 @@ CREATE TABLE IF NOT EXISTS `contract` (
   `date` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `contract`
---
-
-INSERT INTO `contract` (`contract_id`, `client_id`, `amount`, `duration`, `date`) VALUES
-(2, 1, 2000, 3, '2015-04-28');
-
 -- --------------------------------------------------------
 
 --
@@ -90,14 +68,7 @@ CREATE TABLE IF NOT EXISTS `distribution` (
   `amount` int(11) NOT NULL,
   `duration` int(11) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `distribution`
---
-
-INSERT INTO `distribution` (`distribution_id`, `client_id`, `amount`, `duration`, `date`) VALUES
-(3, 1, 2000, 3, '2015-04-28');
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -132,13 +103,30 @@ CREATE TABLE IF NOT EXISTS `interests` (
   `interest` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- 转存表中的数据 `interests`
+-- 表的结构 `record`
 --
 
-INSERT INTO `interests` (`interest_id`, `client_id`, `amount`, `duration`, `date`, `interest`) VALUES
-(1, 1, 2000, 3, '2015-04-29', 0),
-(2, 1, 2000, 3, '2015-04-29', 205);
+CREATE TABLE IF NOT EXISTS `record` (
+`record_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `note` varchar(255) NOT NULL,
+  `level` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `repayment`
+--
+
+CREATE TABLE IF NOT EXISTS `repayment` (
+`repayment_id` int(11) NOT NULL,
+  `distribution_id` int(11) NOT NULL,
+  `repayed` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -152,18 +140,6 @@ CREATE TABLE IF NOT EXISTS `request` (
   `amount` int(11) NOT NULL,
   `duration` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `request`
---
-
-INSERT INTO `request` (`request_id`, `client_id`, `amount`, `duration`) VALUES
-(1, 1, 2000, 3),
-(3, 1, 2000, 3),
-(4, 1, 2000, 3),
-(5, 1, 123, 2),
-(6, 5, 333, 2),
-(7, 3, 1111, 1);
 
 -- --------------------------------------------------------
 
@@ -179,16 +155,6 @@ CREATE TABLE IF NOT EXISTS `response` (
   `accepted` int(11) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `response`
---
-
-INSERT INTO `response` (`response_id`, `client_id`, `amount`, `duration`, `accepted`, `date`) VALUES
-(1, 1, 2000, 3, 1, '2015-04-28'),
-(3, 1, 2000, 3, 1, '2015-04-28'),
-(7, 1, 2000, 3, 1, '2015-04-28'),
-(8, 10, 1538, 10, 2, '2015-04-28');
 
 -- --------------------------------------------------------
 
@@ -246,6 +212,18 @@ ALTER TABLE `interests`
  ADD PRIMARY KEY (`interest_id`);
 
 --
+-- Indexes for table `record`
+--
+ALTER TABLE `record`
+ ADD PRIMARY KEY (`record_id`);
+
+--
+-- Indexes for table `repayment`
+--
+ALTER TABLE `repayment`
+ ADD PRIMARY KEY (`repayment_id`);
+
+--
 -- Indexes for table `request`
 --
 ALTER TABLE `request`
@@ -281,7 +259,7 @@ MODIFY `contract_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `distribution`
 --
 ALTER TABLE `distribution`
-MODIFY `distribution_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `distribution_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `interest`
 --
@@ -292,6 +270,16 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `interests`
 MODIFY `interest_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `record`
+--
+ALTER TABLE `record`
+MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `repayment`
+--
+ALTER TABLE `repayment`
+MODIFY `repayment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `request`
 --
