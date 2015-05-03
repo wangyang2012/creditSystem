@@ -31,15 +31,31 @@
 				mysql_select_db ( 'creditsystem', $db );
 				$sql = 'select client.client_id, client_name, client_type, client.level as clientLevel, note from client join record on client.client_id = record.client_id';
 				$req = mysql_query ( $sql ) or die ( 'Erreur SQL: <br/>' . mysql_error () );
-				$i = 0;
 				while ( $data = mysql_fetch_assoc ( $req ) ) {
 					if ($data['client_type'] == '1') {
 						$clientType = "个人客户";
 					} else if ($data['client_type'] == '2') {
 						$clientType = "企业客户";
 					}
-					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>'.$data['note'].'</td><td>' . $data ['clientLevel'] . '</td><td><input type="text" name="input'.$i.'" onchange="changeLevel(this.value, '.$data['client_id'].')"/></td></tr>';
-					$i = $i + 1;
+					if ($data['clientLevel'] == 1) {
+						$level = "正常";
+					} else if ($data['clientLevel'] == 2) {
+						$level = "关注";
+					} else if ($data['clientLevel'] == 3) {
+						$level = "次级";
+					} else if ($data['clientLevel'] == 4) {
+						$level = "可疑";
+					} else if ($data['clientLevel'] == 5) {
+						$level = "损失";
+					}
+					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>'.$data['note'].'</td><td>' . $level . '</td><td><select onchange="changeLevel(this.value, '.$data['client_id'].')">
+							<option value=0></option>
+							<option value=1>正常</option>
+							<option value=2>关注</option>
+							<option value=3>次级</option>
+							<option value=4>可疑</option>
+							<option value=5>损失</option>
+						</select></td></tr>';
 				}
 				?>
 			</tbody>

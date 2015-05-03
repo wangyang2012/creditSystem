@@ -11,12 +11,12 @@
 		$spouse = $_POST['spouse'];
 		$live = $_POST['live'];
 		$insurance = $_POST['insurance'];
-		$sql = "INSERT INTO `creditsystem`.`client` (`client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`, `level`) VALUES ('".$name."', 1, '".$assets."', '".$liabilities."', '".$professions."', '".$education."', '".$spouse."', '".$live."', '".$insurance."', '', '', '2');";
+		$sql = "INSERT INTO `creditsystem`.`client` (`client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`, `level`) VALUES ('".$name."', 1, '".$assets."', '".$liabilities."', '".$professions."', '".$education."', '".$spouse."', '".$live."', '".$insurance."', '', '', '1');";
 	} else if ($type == 'enterprise') {
 		$name = $_POST['enterpriseName'];
 		$finance = $_POST['finance'];
 		$business = $_POST['business'];
-		$sql = "INSERT INTO `creditsystem`.`client` (`client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`, `level`) VALUES ('".$name."', 2, '', '', '', '', '', '', '', '".$finance."', '".$business."', '2');";
+		$sql = "INSERT INTO `creditsystem`.`client` (`client_name`, `client_type`, `assets`, `liabilities`, `professions`, `education`, `spouse`, `live`, `insurance`, `finance`, `business`, `level`) VALUES ('".$name."', 2, '', '', '', '', '', '', '', '".$finance."', '".$business."', '1');";
 	}
 	$result = mysql_query($sql) or die('Erreur SQL: <br/>'.mysql_error());
 	echo '<script>

@@ -13,6 +13,7 @@
 	$sqlClient = 'select * from client where client_id="'.$clientId.'";';
 	$reqClient = mysql_query($sqlClient) or die('Erreur SQL: <br/>'.mysql_error());
 	$data = mysql_fetch_assoc($reqClient);
+	
 	if ($data['level'] < $level) {
 		$sqlClientUpdate = 'update client set level = "'.$level.'" where client_id="'.$clientId.'";';
 		$reqClient = mysql_query($sqlClientUpdate) or die('Erreur SQL: <br/>'.mysql_error());

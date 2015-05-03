@@ -46,7 +46,18 @@
 					} else if ($data['client_type'] == '2') {
 						$clientType = "企业客户";
 					}
-					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>'.$data['level'].'</td><td><input type="button" onclick="acceptReq(' . $data ['id'] . ', '.$data['level'].');" value="同意"/></td><td><input type="button" onclick="refuseReq(' . $data ['id'] . ');" value="拒绝"/></td></tr>';
+					if ($data['level'] == 1) {
+						$level = "正常";
+					} else if ($data['level'] == 2) {
+						$level = "关注";
+					} else if ($data['level'] == 3) {
+						$level = "次级";
+					} else if ($data['level'] == 4) {
+						$level = "可疑";
+					} else if ($data['level'] == 5) {
+						$level = "损失";
+					}
+					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td>'.$level.'</td><td><input type="button" onclick="acceptReq(' . $data ['id'] . ', '.$data['level'].');" value="同意"/></td><td><input type="button" onclick="refuseReq(' . $data ['id'] . ');" value="拒绝"/></td></tr>';
 				}
 				?>
 			</tbody>

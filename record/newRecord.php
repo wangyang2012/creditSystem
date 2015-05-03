@@ -40,12 +40,19 @@
 			</tr>
 			<tr>
 				<td>说明</td>
-				<td><input type="text" name="note">
+				<td><input type="text" name="note"/></td>
 			
 			</tr>
 			<tr>
 				<td>信用等级</td>
-				<td><input type="text" name="level">
+				<td><select name="level">
+						<option value="1">正常</option>
+						<option value="2">关注</option>
+						<option value="3">次级</option>
+						<option value="4">可疑</option>
+						<option value="5">损失</option>
+					</select>
+				</td>
 			
 			</tr>
 			<tr>

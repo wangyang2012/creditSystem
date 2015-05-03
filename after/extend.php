@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>银行小额信贷管理系统</title> 
 		<script>
-			function extendDuration(id, value) {
-				window.location = "./action/extend.php?id="+id+"&duration="+value;
+			function extendDuration(id, duration, extension) {
+				window.location = "./action/extend.php?id="+id+"&duration="+duration+"&extension="+extension;
 			}
 		</script>
 
@@ -37,7 +37,7 @@
 					} else if ($data['client_type'] == '2') {
 						$clientType = "企业客户";
 					}
-					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td><input type="text" onchange="extendDuration('.$data['distribution_id'].', this.value)"/></td></tr>';
+					echo '<tr><td>' . $data ['client_name'] . '</td><td>' . $clientType . '</td><td>' . $data ['amount'] . '</td><td>' . $data ['duration'] . '</td><td><input type="text" onchange="extendDuration('.$data['distribution_id'].', '.$data['duration'].', this.value)"/></td></tr>';
 					$i = $i + 1;
 				}
 				?>
