@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 06 Mai 2015 à 11:01
+-- Généré le :  Lun 11 Mai 2015 à 10:30
 -- Version du serveur :  5.6.21
 -- Version de PHP :  5.6.3
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `creditsystem`
 --
+CREATE DATABASE IF NOT EXISTS `creditsystem` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `creditsystem`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `client`
 --
 
+DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
 `client_id` int(11) NOT NULL,
   `client_name` varchar(45) DEFAULT NULL,
@@ -48,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Structure de la table `contract`
 --
 
+DROP TABLE IF EXISTS `contract`;
 CREATE TABLE IF NOT EXISTS `contract` (
 `contract_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
@@ -62,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `contract` (
 -- Structure de la table `distribution`
 --
 
+DROP TABLE IF EXISTS `distribution`;
 CREATE TABLE IF NOT EXISTS `distribution` (
 `distribution_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
@@ -76,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `distribution` (
 -- Structure de la table `interest`
 --
 
+DROP TABLE IF EXISTS `interest`;
 CREATE TABLE IF NOT EXISTS `interest` (
 `id` int(11) NOT NULL,
   `value` decimal(6,3) DEFAULT NULL
@@ -86,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `interest` (
 --
 
 INSERT INTO `interest` (`id`, `value`) VALUES
-(1, '0.050');
+(1, '0.030');
 
 -- --------------------------------------------------------
 
@@ -94,13 +100,12 @@ INSERT INTO `interest` (`id`, `value`) VALUES
 -- Structure de la table `interests`
 --
 
+DROP TABLE IF EXISTS `interests`;
 CREATE TABLE IF NOT EXISTS `interests` (
 `interest_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `duration` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `interest` int(11) NOT NULL
+  `interest` int(11) NOT NULL,
+  `distribution_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -109,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `interests` (
 -- Structure de la table `record`
 --
 
+DROP TABLE IF EXISTS `record`;
 CREATE TABLE IF NOT EXISTS `record` (
 `record_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
@@ -119,9 +125,23 @@ CREATE TABLE IF NOT EXISTS `record` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `repayment`
+--
+
+DROP TABLE IF EXISTS `repayment`;
+CREATE TABLE IF NOT EXISTS `repayment` (
+`repayment_id` int(11) NOT NULL,
+  `repayed` int(11) NOT NULL,
+  `distribution_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `request`
 --
 
+DROP TABLE IF EXISTS `request`;
 CREATE TABLE IF NOT EXISTS `request` (
 `request_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
@@ -135,6 +155,7 @@ CREATE TABLE IF NOT EXISTS `request` (
 -- Structure de la table `response`
 --
 
+DROP TABLE IF EXISTS `response`;
 CREATE TABLE IF NOT EXISTS `response` (
 `response_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
@@ -150,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `response` (
 -- Structure de la table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
@@ -206,6 +228,12 @@ ALTER TABLE `record`
  ADD PRIMARY KEY (`record_id`);
 
 --
+-- Index pour la table `repayment`
+--
+ALTER TABLE `repayment`
+ ADD PRIMARY KEY (`repayment_id`);
+
+--
 -- Index pour la table `request`
 --
 ALTER TABLE `request`
@@ -257,6 +285,11 @@ MODIFY `interest_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `record`
 MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `repayment`
+--
+ALTER TABLE `repayment`
+MODIFY `repayment_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `request`
 --
