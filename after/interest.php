@@ -81,7 +81,7 @@
 					
 					// calculate interest
 					$total = $data['amount'];
-					for ($i=1; $i < $data['duration']; $i++) {
+					for ($i=0; $i < $data['duration']; $i++) {
 						$total = $total * (1+$interest);
 					}
 					$amountInterest = round($total - $data['amount'], 2);
